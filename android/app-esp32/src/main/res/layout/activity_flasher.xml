@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="Connect an ESP32-WROOM dev board to the phone with a USB-OTG adapter. The flasher talks to the ESP32 ROM bootloader directly (esptool protocol): sync → detect → erase → write → reset."
+        android:textSize="13sp" android:alpha="0.85" />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+        android:text="USB device" android:textAppearance="?attr/textAppearanceLabelLarge" />
+    <TextView android:id="@+id/deviceLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="…" />
+    <Button android:id="@+id/btnRefresh" style="@style/Widget.Material3.Button.TonalButton"
+        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Refresh / request permission" />
+
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10dp"
+        android:text="Firmware image" android:textAppearance="?attr/textAppearanceLabelLarge" />
+    <TextView android:id="@+id/firmwareLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="…" android:textSize="13sp" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+        <Button android:id="@+id/btnBundled" style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Use bundled" />
+        <Button android:id="@+id/btnPickBin" style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Pick merged .bin" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp" android:gravity="center_vertical">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Baud rate" />
+        <Spinner android:id="@+id/baudSpinner" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:entries="@array/baud_rates" />
+        <Button android:id="@+id/btnFlash" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Flash firmware" />
+    </LinearLayout>
+
+    <ProgressBar android:id="@+id/progress" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="100" />
+    <TextView android:id="@+id/progressLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 / 0 KB" />
+
+    <ScrollView android:id="@+id/logScroll" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:layout_marginTop="6dp">
+        <TextView android:id="@+id/log" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="12sp" />
+    </ScrollView>
+</LinearLayout>

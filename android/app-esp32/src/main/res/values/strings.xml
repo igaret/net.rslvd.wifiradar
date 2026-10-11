@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Wi-Fi Radar (ESP32)</string>
+    <string name="flasher_title">ESP32 Firmware Flasher</string>
+</resources>

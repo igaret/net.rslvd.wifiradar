@@ -1,0 +1,41 @@
+menu "Wi-Fi Radar"
+
+    config WR_DEFAULT_SSID
+        string "Default SSID (AP name for single/tx roles, network to join for rx role)"
+        default "WiFiRadar"
+
+    config WR_DEFAULT_PASSWORD
+        string "Default WPA2 password (8-63 chars, empty = open network)"
+        default "wifiradar123"
+
+    config WR_DEFAULT_CHANNEL
+        int "Default 2.4 GHz channel"
+        range 1 13
+        default 6
+
+    config WR_DEFAULT_TX_RATE_HZ
+        int "Default ping-transmitter rate in Hz (tx role)"
+        range 1 500
+        default 100
+
+    config WR_TCP_PORT
+        int "TCP port for CSI streaming + commands"
+        default 5000
+
+    config WR_ANNOUNCE_PORT
+        int "UDP port for discovery announcements (broadcast, 1 Hz)"
+        default 5005
+
+    config WR_PING_PORT
+        int "UDP port that accepts traffic-generator packets from the phone"
+        default 5006
+
+    config WR_LED_GPIO
+        int "Status LED GPIO (-1 disables; DevKitC boards use 2)"
+        default 2
+
+    config WR_BUTTON_GPIO
+        int "Role-select button GPIO, active low (BOOT button is 0, -1 disables)"
+        default 0
+
+endmenu

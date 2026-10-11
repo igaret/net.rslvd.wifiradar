@@ -1,0 +1,15 @@
+{
+  "name": "Wi-Fi Radar firmware",
+  "version": "1.0.0",
+  "chip": "esp32",
+  "idf": "v5.3.2",
+  "flash_mode": "dio",
+  "flash_freq": "40m",
+  "flash_size": "4MB",
+  "parts": [
+    { "file": "bootloader.bin",      "offset": 4096   },
+    { "file": "partition-table.bin", "offset": 32768  },
+    { "file": "wifi_radar.bin",      "offset": 65536  }
+  ],
+  "merged": { "file": "wifi_radar_merged_0x0.bin", "offset": 0 }
+}

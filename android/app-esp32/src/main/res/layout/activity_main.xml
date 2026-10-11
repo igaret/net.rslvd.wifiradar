@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- ================= Connection ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Connection" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <TextView android:id="@+id/connectionStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Not connected" android:layout_marginTop="4dp" />
+                <TextView android:id="@+id/wifiStatus" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Wi-Fi: not bound" android:alpha="0.8" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <Button android:id="@+id/btnJoinAp" style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Join ESP32 AP" />
+                    <Button android:id="@+id/btnBindWifi" style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Bind Wi-Fi" />
+                    <Button android:id="@+id/btnWifiSettings" style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Settings" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Discovered ESP32s (tap to connect)" android:layout_marginTop="6dp" android:textAppearance="?attr/textAppearanceLabelLarge" />
+                <LinearLayout android:id="@+id/devicesContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                    <EditText android:id="@+id/editHost" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                        android:hint="192.168.4.1[:5000]" android:inputType="textUri" android:importantForAutofill="no" />
+                </LinearLayout>
+                    <Button android:id="@+id/btnConnect" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Connect" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Live plots ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Live CSI" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                    <TextView android:id="@+id/fpsLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 frames/s" />
+                </LinearLayout>
+                <RadioGroup android:id="@+id/plotModeGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/plotDb" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amplitude dB" android:checked="true" />
+                    <RadioButton android:id="@+id/plotLinear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Linear" android:layout_marginStart="8dp" />
+                    <RadioButton android:id="@+id/plotPhase" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Phase (sanitised)" android:layout_marginStart="8dp" />
+                </RadioGroup>
+                <net.rslvd.wifiradar.core.ui.CsiLineView android:id="@+id/lineView" android:layout_width="match_parent" android:layout_height="190dp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Waterfall: sub-carrier (vertical) × time, colour = amplitude relative to frame mean" android:textSize="12sp" android:alpha="0.7" android:layout_marginTop="6dp" />
+                <net.rslvd.wifiradar.core.ui.CsiHeatmapView android:id="@+id/heatmapView" android:layout_width="match_parent" android:layout_height="190dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Mode ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ESP32 topology" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <RadioGroup android:id="@+id/modeGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/modeSingle" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Single ESP32" android:checked="true" />
+                    <RadioButton android:id="@+id/modeDual" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Dual: TX + RX" />
+                </RadioGroup>
+                <TextView android:id="@+id/modeHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:alpha="0.8" android:textSize="13sp" />
+                <TextView android:id="@+id/rateLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="Sample rate: 100 Hz" />
+                <com.google.android.material.slider.Slider android:id="@+id/rateSlider" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:valueFrom="10" android:valueTo="250" android:stepSize="10" android:value="100" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Motion ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Motion / presence" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <TextView android:id="@+id/motionLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="MOTION: —" android:textSize="20sp" android:layout_marginTop="4dp" />
+                <ProgressBar android:id="@+id/motionBar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="300" />
+                <TextView android:id="@+id/thresholdLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Motion threshold: 0.06" />
+                <com.google.android.material.slider.Slider android:id="@+id/thresholdSlider" android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:valueFrom="1" android:valueTo="30" android:stepSize="1" android:value="6" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Device ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ESP32 device" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <TextView android:id="@+id/deviceStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="12sp" android:text="no status yet" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="6dp">
+                    <EditText android:id="@+id/editCommand" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                        android:hint="INFO | SET_RATE _CSI _ROLE | REBOOT" android:inputType="text" android:importantForAutofill="no" android:textSize="13sp" />
+                    <Button android:id="@+id/btnSend" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Send" />
+                </LinearLayout>
+                <TextView android:id="@+id/deviceLog" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="11sp" android:layout_marginTop="6dp" />
+                <Button android:id="@+id/btnFlasher" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp" android:text="ESP32 firmware flasher (USB OTG)" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Record / export ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Record &amp; export" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <RadioGroup android:id="@+id/formatGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/formatCsv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CSV" android:checked="true" />
+                    <RadioButton android:id="@+id/formatJsonl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="JSON Lines" android:layout_marginStart="12dp" />
+                </RadioGroup>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <Button android:id="@+id/btnRecord" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Start recording" />
+                    <Button android:id="@+id/btnExport" style="@style/Widget.Material3.Button.TonalButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Export last" />
+                </LinearLayout>
+                <TextView android:id="@+id/recordStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="No capture yet" android:alpha="0.8" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+    </LinearLayout>
+</ScrollView>

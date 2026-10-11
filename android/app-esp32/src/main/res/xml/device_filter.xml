@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Silicon Labs CP2102/CP2104 (ESP32-DevKitC, NodeMCU-32S) 10c4:ea60 / ea70 -->
+    <usb-device vendor-id="4292" product-id="60000" />
+    <usb-device vendor-id="4292" product-id="60016" />
+    <!-- WCH CH340/CH341 (most clones) 1a86:7523, CH9102 1a86:55d4 -->
+    <usb-device vendor-id="6790" product-id="29987" />
+    <usb-device vendor-id="6790" product-id="21972" />
+    <!-- FTDI FT232R / FT231X 0403:6001 / 6015 -->
+    <usb-device vendor-id="1027" product-id="24577" />
+    <usb-device vendor-id="1027" product-id="24597" />
+    <!-- Espressif built-in USB-Serial/JTAG (S3/C3 boards; not WROOM, harmless) 303a:1001 -->
+    <usb-device vendor-id="12346" product-id="4097" />
+</resources>

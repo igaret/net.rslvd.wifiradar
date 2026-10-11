@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <!-- ================= Device / preflight ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Device (root + Nexmon CSI)" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <TextView android:id="@+id/preflightText" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="12sp" android:layout_marginTop="4dp" />
+                <Button android:id="@+id/btnPreflight" style="@style/Widget.Material3.Button.TonalButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Check device" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Wi-Fi chip / firmware patch" android:textAppearance="?attr/textAppearanceLabelLarge" android:layout_marginTop="6dp" />
+                <Spinner android:id="@+id/chipSpinner" android:layout_width="match_parent" android:layout_height="wrap_content" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Interface" />
+                    <EditText android:id="@+id/editIface" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:inputType="text" android:importantForAutofill="no" android:hint="wlan0" />
+                </LinearLayout>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CSI packet source" android:textAppearance="?attr/textAppearanceLabelLarge" android:layout_marginTop="6dp" />
+                <RadioGroup android:id="@+id/sourceGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/srcUdp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="UDP socket :5500" android:checked="true" />
+                    <RadioButton android:id="@+id/srcTcpdump" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="root tcpdump (fallback)" android:layout_marginStart="8dp" />
+                </RadioGroup>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Capture configuration ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Capture" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <RadioGroup android:id="@+id/modeGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/modeConnected" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Connected (ping AP)" android:checked="true" />
+                    <RadioButton android:id="@+id/modePassive" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Passive (monitor)" />
+                </RadioGroup>
+                <TextView android:id="@+id/modeHint" android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="13sp" android:alpha="0.8" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginTop="6dp">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Channel" />
+                    <EditText android:id="@+id/editChannel" android:layout_width="70dp" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:inputType="number" android:importantForAutofill="no" />
+                    <RadioGroup android:id="@+id/bwGroup" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginStart="8dp">
+                        <RadioButton android:id="@+id/bw20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="20" android:checked="true" />
+                        <RadioButton android:id="@+id/bw40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="40" />
+                        <RadioButton android:id="@+id/bw80" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="80 MHz" />
+                    </RadioGroup>
+                </LinearLayout>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MAC filter" />
+                    <EditText android:id="@+id/editMac" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:hint="aa:bb:cc:dd:ee:ff[, …] (max 4, empty = all)" android:inputType="text" android:importantForAutofill="no" android:textSize="13sp" />
+                </LinearLayout>
+                <CheckBox android:id="@+id/firstByteFilter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Only QoS-data frames (frame control 0x88)" />
+                <Button android:id="@+id/btnUseCurrentAp" style="@style/Widget.Material3.Button.TonalButton" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Use current AP (channel + BSSID)" />
+                <TextView android:id="@+id/rateLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ping rate: 50 Hz" />
+                <com.google.android.material.slider.Slider android:id="@+id/rateSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:valueFrom="5" android:valueTo="200" android:stepSize="5" android:value="50" />
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <Button android:id="@+id/btnStart" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Start capture" />
+                    <Button android:id="@+id/btnDemo" style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Demo (synthetic CSI)" />
+                </LinearLayout>
+                <TextView android:id="@+id/statusText" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Idle" />
+                <TextView android:id="@+id/statsText" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Live plots ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Live CSI" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                    <TextView android:id="@+id/fpsLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0 frames/s" />
+                </LinearLayout>
+                <RadioGroup android:id="@+id/plotModeGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/plotDb" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Amplitude dB" android:checked="true" />
+                    <RadioButton android:id="@+id/plotLinear" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Linear" android:layout_marginStart="8dp" />
+                    <RadioButton android:id="@+id/plotPhase" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Phase (sanitised)" android:layout_marginStart="8dp" />
+                </RadioGroup>
+                <net.rslvd.wifiradar.core.ui.CsiLineView android:id="@+id/lineView" android:layout_width="match_parent" android:layout_height="190dp" />
+                <net.rslvd.wifiradar.core.ui.CsiHeatmapView android:id="@+id/heatmapView" android:layout_width="match_parent" android:layout_height="190dp" android:layout_marginTop="8dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Motion ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Motion / presence" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <TextView android:id="@+id/motionLabel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="MOTION: —" android:textSize="20sp" android:layout_marginTop="4dp" />
+                <ProgressBar android:id="@+id/motionBar" style="?android:attr/progressBarStyleHorizontal" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="300" />
+                <TextView android:id="@+id/thresholdLabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Motion threshold: 0.06" />
+                <com.google.android.material.slider.Slider android:id="@+id/thresholdSlider" android:layout_width="match_parent" android:layout_height="wrap_content" android:valueFrom="1" android:valueTo="30" android:stepSize="1" android:value="6" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- ================= Record / export + log ================= -->
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="12dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Record &amp; export" android:textAppearance="?attr/textAppearanceTitleMedium" />
+                <RadioGroup android:id="@+id/formatGroup" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <RadioButton android:id="@+id/formatCsv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CSV" android:checked="true" />
+                    <RadioButton android:id="@+id/formatJsonl" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="JSON Lines" android:layout_marginStart="12dp" />
+                </RadioGroup>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <Button android:id="@+id/btnRecord" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Start recording" />
+                    <Button android:id="@+id/btnExport" style="@style/Widget.Material3.Button.TonalButton" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="Export last" />
+                </LinearLayout>
+                <TextView android:id="@+id/recordStatus" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="No capture yet" android:alpha="0.8" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Log" android:textAppearance="?attr/textAppearanceLabelLarge" android:layout_marginTop="8dp" />
+                <TextView android:id="@+id/logText" android:layout_width="match_parent" android:layout_height="wrap_content" android:fontFamily="monospace" android:textSize="11sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,24 @@
+# ---- Wi-Fi Radar firmware defaults (ESP32-WROOM, ESP-IDF v5.3) ----
+CONFIG_IDF_TARGET="esp32"
+
+# Flash layout: 4 MB, DIO @ 40 MHz is the safe setting for every WROOM-32 module
+CONFIG_ESPTOOLPY_FLASHSIZE_4MB=y
+CONFIG_ESPTOOLPY_FLASHMODE_DIO=y
+CONFIG_ESPTOOLPY_FLASHFREQ_40M=y
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="partitions.csv"
+
+# CSI is OFF by default in ESP-IDF; without this esp_wifi_set_csi() returns ESP_ERR_NOT_SUPPORTED
+CONFIG_ESP_WIFI_CSI_ENABLED=y
+
+# 1 kHz tick so the ping transmitter can pace at up to ~500 Hz
+CONFIG_FREERTOS_HZ=1000
+
+# Extra RX buffers: CSI callbacks arrive in bursts when the phone sends traffic
+CONFIG_ESP_WIFI_STATIC_RX_BUFFER_NUM=16
+CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM=32
+
+# -O2: the CSI callback runs in the Wi-Fi task and must be quick
+CONFIG_COMPILER_OPTIMIZATION_PERF=y
+
+CONFIG_LOG_DEFAULT_LEVEL_INFO=y
