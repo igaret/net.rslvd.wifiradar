@@ -68,8 +68,7 @@ CSI extraction on a phone's own chipset requires firmware that exposes it. The o
 | bcm4366c0 | Asus RT-AC86U | `bcm4366c0/10_10_122_20` | not Android |
 
 **Not supported, and no public tool exists:** every Qualcomm chip (WCN39xx/WCN68xx, QCA6x9x), modern Broadcom
-(bcm4375/4389 in recent Pixels/Galaxies), MediaTek, Samsung Exynos Wi-Fi. On those phones Deliverable 1 can only
-run its *Demo* source; use the ESP32 path instead. Installing Nexmon (patched `fw_bcmdhd.bin` + `nexutil`) is a
+(bcm4375/4389 in recent Pixels/Galaxies), MediaTek, Samsung Exynos Wi-Fi; use the ESP32 path instead. Installing Nexmon (patched `fw_bcmdhd.bin` + `nexutil`) is a
 one-time manual step following the nexmon_csi README; the app checks for it (*Check device*) and does the rest.
 
 ## Hardware limitations / known issues
