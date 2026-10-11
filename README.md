@@ -55,7 +55,7 @@ cd android && ./gradlew assembleDebug
 | app-esp32 | usb-serial-for-android (`com.github.mik3y`, JitPack) | 3.8.1 |
 | app-rooted | Nexmon + nexmon_csi (installed on the phone, not bundled) | chip-specific patch, see table below |
 
-## Rooted-app device compatibility (Deliverable 1)
+## Rooted-app device compatibility
 
 CSI extraction on a phone's own chipset requires firmware that exposes it. The only open-source route is
 **Nexmon CSI** for a handful of Broadcom FullMAC chips:
